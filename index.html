@@ -933,8 +933,8 @@
           </div>
         </div>
         <div class="hero-testimonial">
-          <p>"Site went live and we started getting calls that same week. Went from zero web presence to booked out."</p>
-          <p class="attribution">Jason Lott, Owner // DryWorx</p>
+          <p>"Site went live and we started getting calls that same week. Should've done this a long time ago."</p>
+          <p class="attribution">Jason Lott, DryWorx (project partner)</p>
         </div>
       </div>
     </div>
@@ -1054,7 +1054,8 @@
                 <span class="work-stat-label">Optimized</span>
               </div>
             </div>
-            <a href="https://oldnorthconcrete.com" target="_blank" rel="noopener" class="work-link">View Live Site &rarr;</a>
+            <a href="/case-study-old-north-concrete.html" class="work-link">View Case Study &rarr;</a>
+            <a href="https://oldnorthconcrete.com" target="_blank" rel="noopener" class="work-link" style="color: var(--text-muted);">View Live Site &rarr;</a>
           </div>
         </div>
         <div class="work-card fade-in">
@@ -1086,7 +1087,8 @@
                 <span class="work-stat-label">Optimized</span>
               </div>
             </div>
-            <a href="https://dryworx-site.vercel.app" target="_blank" rel="noopener" class="work-link">View Live Site &rarr;</a>
+            <a href="/case-study-dryworx.html" class="work-link">View Case Study &rarr;</a>
+            <a href="https://dryworx-site.vercel.app" target="_blank" rel="noopener" class="work-link" style="color: var(--text-muted);">View Live Site &rarr;</a>
           </div>
         </div>
       </div>
@@ -1296,7 +1298,7 @@
             </div>
           </div>
         </div>
-        <form class="contact-form fade-in" id="contactForm">
+        <form class="contact-form fade-in" id="contactForm" action="https://formspree.io/f/xlgoqqpa" method="POST">
           <div class="form-row">
             <div class="form-group">
               <label for="name">Name</label>
@@ -1367,10 +1369,31 @@
     document.getElementById('contactForm').addEventListener('submit', function(e) {
       e.preventDefault();
       const btn = this.querySelector('button[type="submit"]');
-      btn.innerHTML = 'Sent. We\'ll be in touch.';
-      btn.style.background = '#22c55e';
+      const form = this;
+      btn.innerHTML = 'Sending...';
       btn.disabled = true;
-      setTimeout(() => { btn.innerHTML = 'Send. Get Your Free Audit.'; btn.style.background = ''; btn.disabled = false; this.reset(); }, 4000);
+      fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      }).then(r => {
+        if (r.ok) {
+          btn.innerHTML = 'Sent. We\'ll be in touch.';
+          btn.style.background = '#22c55e';
+          form.reset();
+          setTimeout(() => { btn.innerHTML = 'Send. Get Your Free Audit.'; btn.style.background = ''; btn.disabled = false; }, 4000);
+        } else {
+          btn.innerHTML = 'Something went wrong. Try calling.';
+          btn.style.background = '#ef4444';
+          btn.disabled = false;
+          setTimeout(() => { btn.innerHTML = 'Send. Get Your Free Audit.'; btn.style.background = ''; }, 4000);
+        }
+      }).catch(() => {
+        btn.innerHTML = 'Something went wrong. Try calling.';
+        btn.style.background = '#ef4444';
+        btn.disabled = false;
+        setTimeout(() => { btn.innerHTML = 'Send. Get Your Free Audit.'; btn.style.background = ''; }, 4000);
+      });
     });
 
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
