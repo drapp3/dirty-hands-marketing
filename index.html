@@ -220,20 +220,119 @@
       align-items: center;
       position: relative;
       padding-top: 5rem;
+      overflow: hidden;
     }
 
     .hero::before {
       content: '';
       position: absolute;
-      top: -20%;
-      right: -15%;
-      width: 500px;
-      height: 500px;
+      top: -10%;
+      right: -20%;
+      width: 520px;
+      height: 520px;
       background: radial-gradient(circle, var(--accent-subtle) 0%, transparent 65%);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .hero-bg-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      background:
+        linear-gradient(135deg, #1a1410 0%, #0a0a0a 60%, #000 100%);
+      overflow: hidden;
+      will-change: transform;
+    }
+
+    .hero-bg-image::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(circle at 15% 85%, rgba(255, 90, 31, 0.08) 0%, transparent 55%),
+        radial-gradient(circle at 85% 10%, rgba(0, 0, 0, 0.55) 0%, transparent 60%);
       pointer-events: none;
     }
 
-    .hero-content { position: relative; z-index: 2; max-width: 720px; }
+    .hero-bg-image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 12px 12px;
+      pointer-events: none;
+    }
+
+    .hero-bg-placeholder-label {
+      position: absolute;
+      top: 1.5rem;
+      left: 1.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      z-index: 3;
+    }
+
+    .hero-bg-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      background: linear-gradient(90deg, rgba(10,10,10,0.3) 0%, rgba(10,10,10,0.97) 60%, rgba(10,10,10,0.97) 100%);
+      pointer-events: none;
+    }
+
+    .hero-layout {
+      position: relative;
+      z-index: 3;
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    .hero-content { max-width: 600px; }
+
+    .hero-scroll-indicator {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      pointer-events: none;
+    }
+
+    .hero-scroll-indicator .line {
+      width: 1px;
+      height: 30px;
+      background: var(--text-muted);
+      animation: scrollBounce 2s ease-in-out infinite;
+    }
+
+    .hero-scroll-indicator .label {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--text-muted);
+      letter-spacing: 2px;
+      text-transform: lowercase;
+    }
+
+    @keyframes scrollBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(8px); }
+    }
 
     .hero-tag {
       display: inline-flex;
@@ -266,11 +365,12 @@
     }
 
     .hero h1 {
-      font-size: clamp(2.6rem, 5.5vw, 3.8rem);
+      font-size: clamp(3rem, 6vw, 4.5rem);
       font-weight: 700;
       line-height: 1.05;
       letter-spacing: -0.02em;
       margin-bottom: 1.2rem;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.5);
     }
 
     .hero h1 .accent { color: var(--accent); }
@@ -289,6 +389,7 @@
       max-width: 520px;
       margin-bottom: 2.5rem;
       line-height: 1.65;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.5);
     }
 
     .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
@@ -1066,6 +1167,10 @@
       .founding-card { padding: 1.6rem; }
       .about-team { gap: 0.8rem; }
       .about-headshot .img-placeholder { width: 120px; height: 120px; }
+      .hero-bg-overlay { background: linear-gradient(180deg, rgba(10,10,10,0.3) 0%, rgba(10,10,10,0.95) 60%, rgba(10,10,10,0.97) 100%); }
+      .hero-layout { flex-direction: column; justify-content: flex-end; align-items: stretch; }
+      .hero-content { max-width: 100%; }
+      .hero-scroll-indicator { display: none; }
       .services-left { position: static; }
       .process-steps { grid-template-columns: 1fr; }
       .fit-grid { grid-template-columns: 1fr; }
@@ -1189,35 +1294,46 @@
 
   <!-- HERO -->
   <section class="hero">
+    <!-- TODO: When jason-jobsite.jpg exists, replace .hero-bg-image inner placeholder with: <img src="/assets/images/jason-jobsite.jpg" alt="" style="width: 100%; height: 100%; object-fit: cover; object-position: center left;" /> and remove the placeholder label -->
+    <div class="hero-bg-image" id="heroBgImage">
+      <span class="hero-bg-placeholder-label">[ JASON / JOBSITE / PHOTO PENDING ]</span>
+    </div>
+    <div class="hero-bg-overlay"></div>
     <div class="container">
-      <div class="hero-content fade-in">
-        <div class="hero-tag">North Carolina</div>
-        <h1>Your customers are searching.<br><span class="accent">They're finding your competitor.</span></h1>
-        <p class="hero-kw">Web design and SEO for contractors across North Carolina.</p>
-        <p>We build fast websites, fix your Google presence, and turn local searches into booked jobs. Serving contractors and service businesses across NC, from Charlotte to the mountains.</p>
-        <div class="hero-actions">
-          <a href="#contact" class="btn-primary">Get Your Free Audit</a>
-          <a href="#work" class="btn-secondary">See Our Work</a>
-        </div>
-        <div class="hero-proof">
-          <div class="proof-item">
-            <span class="proof-number">&lt;1s</span>
-            <span class="proof-label">Load times</span>
+      <div class="hero-layout">
+        <div class="hero-content fade-in">
+          <div class="hero-tag">North Carolina</div>
+          <h1>Your customers are searching.<br><span class="accent">They're finding your competitor.</span></h1>
+          <p class="hero-kw">Web design and SEO for contractors across North Carolina.</p>
+          <p>We build fast websites, fix your Google presence, and turn local searches into booked jobs. Serving contractors and service businesses across NC, from Charlotte to the mountains.</p>
+          <div class="hero-actions">
+            <a href="#contact" class="btn-primary">Get Your Free Audit</a>
+            <a href="#work" class="btn-secondary">See Our Work</a>
           </div>
-          <div class="proof-item">
-            <span class="proof-number">100</span>
-            <span class="proof-label">PageSpeed</span>
+          <div class="hero-proof">
+            <div class="proof-item">
+              <span class="proof-number">&lt;1s</span>
+              <span class="proof-label">Load times</span>
+            </div>
+            <div class="proof-item">
+              <span class="proof-number">100</span>
+              <span class="proof-label">PageSpeed</span>
+            </div>
+            <div class="proof-item">
+              <span class="proof-number">$0</span>
+              <span class="proof-label">Ad spend</span>
+            </div>
           </div>
-          <div class="proof-item">
-            <span class="proof-number">$0</span>
-            <span class="proof-label">Ad spend</span>
+          <div class="hero-testimonial">
+            <p>"Site went live and we started getting calls that same week. Should've done this a long time ago."</p>
+            <p class="attribution">Founder, Local Waterproofing Company</p>
           </div>
-        </div>
-        <div class="hero-testimonial">
-          <p>"Site went live and we started getting calls that same week. Should've done this a long time ago."</p>
-          <p class="attribution">Founder, Local Waterproofing Company</p>
         </div>
       </div>
+    </div>
+    <div class="hero-scroll-indicator" aria-hidden="true">
+      <span class="line"></span>
+      <span class="label">scroll</span>
     </div>
   </section>
 
@@ -1749,6 +1865,28 @@
         t.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     });
+
+    try {
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!reduceMotion && window.innerWidth >= 900) {
+        var heroBg = document.getElementById('heroBgImage');
+        if (heroBg) {
+          var ticking = false;
+          var lastY = 0;
+          function updateParallax() {
+            heroBg.style.transform = 'translateY(' + (-lastY * 0.4) + 'px)';
+            ticking = false;
+          }
+          window.addEventListener('scroll', function() {
+            lastY = window.scrollY;
+            if (!ticking) {
+              window.requestAnimationFrame(updateParallax);
+              ticking = true;
+            }
+          }, { passive: true });
+        }
+      }
+    } catch (e) {}
   </script>
 </body>
 </html>
