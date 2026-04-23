@@ -372,35 +372,57 @@
       font-size: 0.75rem;
     }
 
-    /* SCREENSHOT PLACEHOLDER */
-    .screenshot-placeholder {
-      margin-top: 2rem;
-      width: 100%;
-      height: 340px;
+    /* PLACEHOLDERS */
+    .img-placeholder {
+      position: relative;
       background: var(--bg-surface);
-      border: 1px dashed var(--border-soft);
-      border-radius: var(--radius);
+      border: 1px solid var(--border-soft);
+      border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
-      flex-direction: column;
-      gap: 0.5rem;
+      overflow: hidden;
     }
 
-    .screenshot-placeholder span {
+    .img-placeholder::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(circle at 25% 25%, var(--accent-subtle) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(255,255,255,0.02) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .img-placeholder::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(
+          45deg,
+          transparent,
+          transparent 10px,
+          rgba(255,255,255,0.015) 10px,
+          rgba(255,255,255,0.015) 11px
+        );
+      pointer-events: none;
+    }
+
+    .img-placeholder-label {
+      position: relative;
+      z-index: 2;
       font-family: var(--font-mono);
-      font-size: 0.7rem;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .screenshot-placeholder .hint {
       font-size: 0.65rem;
       color: var(--text-muted);
-      opacity: 0.6;
-      text-transform: none;
-      letter-spacing: 0;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: 600;
+      padding: 0.4rem 0.9rem;
+      background: rgba(10,10,10,0.7);
+      border: 1px solid var(--border-soft);
+      border-radius: 4px;
+      backdrop-filter: blur(4px);
     }
 
     /* TESTIMONIAL */
@@ -702,10 +724,13 @@
         </div>
       </div>
 
-      <!-- Replace this with a real screenshot when you have one -->
-      <div class="screenshot-placeholder fade-in">
-        <span>Screenshot goes here</span>
-        <span class="hint">Replace with a real screenshot of the client site</span>
+      <!-- TODO: Replace with <img src="/assets/images/screenshot-concrete.png" alt="Old North Concrete website" loading="lazy" style="width: 100%; height: 340px; object-fit: cover;"> -->
+      <div class="img-placeholder fade-in" style="width: 100%; height: 340px; margin-top: 2rem;">
+        <span class="img-placeholder-label">[ OLD NORTH CONCRETE / LIVE SITE SCREENSHOT ]</span>
+      </div>
+      <!-- TODO: Replace with <img src="/assets/images/pagespeed-concrete.png" alt="PageSpeed 100/100 score" loading="lazy" style="width: 100%; max-width: 480px; height: 200px; object-fit: contain;"> -->
+      <div class="img-placeholder fade-in" style="width: 100%; max-width: 480px; height: 200px; margin-top: 1.5rem;">
+        <span class="img-placeholder-label">[ PAGESPEED SCORE / 100 ]</span>
       </div>
 
       <div class="cs-testimonial fade-in">

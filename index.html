@@ -498,6 +498,88 @@
 
     .service-item p { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.55; }
 
+    /* ── PLACEHOLDERS ── */
+    .img-placeholder {
+      position: relative;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-soft);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .img-placeholder::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(circle at 25% 25%, var(--accent-subtle) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(255,255,255,0.02) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .img-placeholder::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(
+          45deg,
+          transparent,
+          transparent 10px,
+          rgba(255,255,255,0.015) 10px,
+          rgba(255,255,255,0.015) 11px
+        );
+      pointer-events: none;
+    }
+
+    .img-placeholder-label {
+      position: relative;
+      z-index: 2;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: 600;
+      padding: 0.4rem 0.9rem;
+      background: rgba(10,10,10,0.7);
+      border: 1px solid var(--border-soft);
+      border-radius: 4px;
+      backdrop-filter: blur(4px);
+    }
+
+    .about-team {
+      display: flex;
+      gap: 1rem;
+      max-width: 320px;
+      margin-bottom: 2rem;
+    }
+
+    .about-headshot {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+    }
+
+    .about-headshot .img-placeholder {
+      width: 140px;
+      height: 140px;
+    }
+
+    .about-headshot-name {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-top: 0.5rem;
+      text-align: center;
+    }
+
     /* ── WORK ── */
     .work { background: var(--bg-surface); }
 
@@ -982,6 +1064,8 @@
       .nav-phone { display: none !important; }
       .services-wrapper, .work-grid, .about-content, .contact-wrapper, .founding-terms { grid-template-columns: 1fr; }
       .founding-card { padding: 1.6rem; }
+      .about-team { gap: 0.8rem; }
+      .about-headshot .img-placeholder { width: 120px; height: 120px; }
       .services-left { position: static; }
       .process-steps { grid-template-columns: 1fr; }
       .fit-grid { grid-template-columns: 1fr; }
@@ -1225,12 +1309,9 @@
         <div class="work-card fade-in">
           <div class="work-preview">
             <div class="work-preview-url">client-site.com</div>
-            <div class="work-preview-screen">
-              <div class="screen-bar accent" style="width: 45%;"></div>
-              <div class="screen-bar w80"></div>
-              <div class="screen-bar w60"></div>
-              <div class="screen-bar w40"></div>
-              <div class="screen-bar w80"></div>
+            <!-- TODO: Replace with <img src="/assets/images/screenshot-concrete-thumb.png" alt="Old North Concrete website" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;"> -->
+            <div class="img-placeholder" style="width: 100%; height: 100%;">
+              <span class="img-placeholder-label">[ OLD NORTH CONCRETE / SITE PREVIEW ]</span>
             </div>
           </div>
           <div class="work-info">
@@ -1257,12 +1338,9 @@
         <div class="work-card fade-in">
           <div class="work-preview">
             <div class="work-preview-url">client-site.com</div>
-            <div class="work-preview-screen">
-              <div class="screen-bar accent" style="width: 50%;"></div>
-              <div class="screen-bar w60"></div>
-              <div class="screen-bar w80"></div>
-              <div class="screen-bar w40"></div>
-              <div class="screen-bar w60"></div>
+            <!-- TODO: Replace with <img src="/assets/images/screenshot-waterproofing-thumb.png" alt="DryWorx website" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;"> -->
+            <div class="img-placeholder" style="width: 100%; height: 100%;">
+              <span class="img-placeholder-label">[ DRYWORX / SITE PREVIEW ]</span>
             </div>
           </div>
           <div class="work-info">
@@ -1443,6 +1521,22 @@
     <div class="container">
       <div class="section-label fade-in">Who we are</div>
       <h2 class="section-title fade-in">Not a marketing agency.<br>Your competitive edge.</h2>
+      <div class="about-team fade-in">
+        <div class="about-headshot">
+          <!-- TODO: Replace with <img src="/assets/images/headshot-davis.jpg" alt="Davis Rapp" loading="lazy" width="140" height="140" style="width: 140px; height: 140px; object-fit: cover; border-radius: 10px;"> -->
+          <div class="img-placeholder">
+            <span class="img-placeholder-label">[ DAVIS ]</span>
+          </div>
+          <div class="about-headshot-name">Davis Rapp</div>
+        </div>
+        <div class="about-headshot">
+          <!-- TODO: Replace with <img src="/assets/images/headshot-jason.jpg" alt="Jason Lott" loading="lazy" width="140" height="140" style="width: 140px; height: 140px; object-fit: cover; border-radius: 10px;"> -->
+          <div class="img-placeholder">
+            <span class="img-placeholder-label">[ JASON ]</span>
+          </div>
+          <div class="about-headshot-name">Jason Lott</div>
+        </div>
+      </div>
       <div class="about-content" style="margin-top: 2rem;">
         <div class="about-text fade-in">
           <p>Dirty Hands Marketing was started by <strong>Davis Rapp</strong> and <strong>Jason Lott</strong>. Two guys who got tired of watching local businesses get ripped off by agencies that don't understand the trades.</p>

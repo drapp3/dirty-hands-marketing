@@ -188,16 +188,52 @@ When uncertain whether output meets this bar, default to MORE specific, MORE dir
 ## File Structure
 ```
 /
-├── index.html                          # Homepage
+├── index.html
 ├── work/
-│   ├── case-study-concrete.html        # Concrete contractor case study
-│   └── case-study-waterproofing.html   # Waterproofing case study
+│   ├── case-study-concrete.html
+│   └── case-study-waterproofing.html
+├── services/
+│   ├── web-design.html
+│   ├── local-seo.html
+│   └── google-business.html
+├── industries/
+│   ├── concrete-contractors.html
+│   ├── roofing-contractors.html
+│   ├── plumbing-contractors.html
+│   ├── hvac-contractors.html
+│   └── pressure-washing.html
+├── assets/
+│   ├── images/
+│   │   ├── davis-headshot.jpg
+│   │   ├── jason-headshot.jpg
+│   │   ├── jason-jobsite.jpg
+│   │   ├── davis-working.jpg
+│   │   ├── screenshot-concrete.png
+│   │   ├── screenshot-waterproofing.png
+│   │   ├── pagespeed-concrete.png
+│   │   └── pagespeed-waterproofing.png
+│   └── site-audit-template.pdf
 ├── favicon.svg
 ├── logo.svg
 ├── sitemap.xml
 ├── robots.txt
 └── CLAUDE.md
 ```
+
+## Subpage Pattern (services + industries)
+- All subpages follow the same template structure: nav (identical to index) → hero (page-specific) → 3-5 content sections → CTA section → footer (identical to index)
+- Subpages use the same design tokens, fonts, fade-in animations as index.html
+- Each subpage MUST have: unique <title>, meta description with target keyword, canonical URL, og:title, og:description, JSON-LD Service schema (services) or LocalBusiness schema with industry context (industries)
+- Service pages target: "[service] for contractors North Carolina" keywords
+- Industry pages target: "[trade] website design [city/NC]" + "[trade] SEO" keywords
+- All subpages link back to home and to /#contact for primary conversion
+- Footer + nav must remain byte-identical across all pages
+
+## Placeholder Asset System (until real photos arrive)
+- When real images do not yet exist at the file paths in the structure above, use the branded placeholder system: a CSS-only component with subtle gradient, dotted texture overlay, monospace label like "[ DAVIS — HEADSHOT ]" or "[ JASON — JOBSITE ]"
+- Placeholders use --bg-surface background, --border-soft border, --text-muted label color
+- Placeholders MUST match the dimensions of the eventual real image so swapping is a 1-line change
+- When real images arrive, replace the placeholder div with an <img> tag using the exact path defined in File Structure
 
 ## Pricing (locked — graduated model)
 
