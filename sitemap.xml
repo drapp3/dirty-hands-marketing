@@ -16,6 +16,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://dirtyhandsmarketing.com/services/google-business</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://dirtyhandsmarketing.com/work/case-study-concrete</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
